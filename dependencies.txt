@@ -1,0 +1,8 @@
+> Install Playwright
+
+https://github.com/cucumber/cucumber-js
+
+npm install @cucumber/cucumber -D
+
+npm install ts-node -D
+
