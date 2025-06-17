@@ -1,4 +1,11 @@
-import { Before, After, BeforeAll, AfterAll } from "@cucumber/cucumber";
+import {
+  Before,
+  After,
+  BeforeAll,
+  AfterAll,
+  AfterStep,
+  Status,
+} from "@cucumber/cucumber";
 import { Page, Browser, BrowserContext, chromium } from "@playwright/test";
 import { pageFixture } from "./pageFixture";
 
@@ -11,6 +18,12 @@ BeforeAll(async function () {
 AfterAll(async function () {
   await browser.close();
 });
+// AfterStep(async function ({ pickle }) {
+//   const img = await pageFixture.page.screenshot({
+//     path: `./test-results/screenshots/${pickle.name}.png`,
+//   });
+//   this.attach(img, "image/png");
+// });
 
 Before(async function () {
   context = await browser.newContext();
@@ -18,7 +31,16 @@ Before(async function () {
   pageFixture.page = page;
 });
 
-After(async function () {
+After(async function ({pickle,result}) {
+  if(result?.status == Status.FAILED){
+    const img = await pageFixture.page.screenshot({
+    path: `./test-results/screenshots/${pickle.name}.png`,
+  });
+  this.attach(img, "image/png");
+  }
+
+   
+  
   await pageFixture.page.close();
   await context.close();
 });
