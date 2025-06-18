@@ -16,9 +16,11 @@ let context: BrowserContext;
 BeforeAll(async function () {
   browser = await chromium.launch({ headless: false });
 });
+
 AfterAll(async function () {
   await browser.close();
 });
+
 // AfterStep(async function ({ pickle }) {
 //   const img = await pageFixture.page.screenshot({
 //     path: `./test-results/screenshots/${pickle.name}.png`,
@@ -39,10 +41,7 @@ After(async function ({pickle,result}) {
     path: `./test-result/screenshots/${pickle.name}.png`,
   });
   this.attach(img, "image/png");
-  }
-
-   
-  
+}
   await pageFixture.page.close();
   await context.close();
 });
