@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js test",
-    "failed":"cucumber-js test -p rerun test-result/@rerun.txt" 
+    "test": "cucumber-js test --config=config/cucumber.js",
+    "failed":"cucumber-js test -p rerun test-result/@rerun.txt",
+    "register":"npm test --tags=\"@register\""
   },
   "keywords": [],
   "author": "",
